@@ -45,7 +45,7 @@ geneSetSelect <- function(input, output, session, mgc, server=TRUE,
     observeEvent(mgc(), {
       updateSelectizeInput(session, "geneset", choices=mgc()$choices,
                            server=TRUE, selected=NULL)
-    })
+    }, priority=5)
   }
 
   vals <- reactive({
@@ -62,8 +62,24 @@ geneSetSelect <- function(input, output, session, mgc, server=TRUE,
         setNames(c('collection', 'name'))
       coll <- info[1L]
       name <- info[2L]
-      stats <- geneSet(mgc()$mg, info[1L], info[2L])
-      stats <- stats[order(logFC, decreasing=TRUE)]
+
+      ## When this is used as a module in another application
+      ## (ie. FacileExplorer), it is possible that the GeneSetDb used
+      ## swaps from under our feet and the geneset (collection,name) you
+      ## had loaded in this UI element disappears. This should be caught
+      ## by some reactive expression upstream, but I can't get it to work,
+      ## (I thought the observeEvent(..., priority=5) would do the trick)
+      ## so I'm ensuring that the geneSet() call doesn't fail. If it does, it
+      ## means that geneset you are looking for disappeared, likely due to
+      ## the reason I stated above.
+      stats <- failWith(NULL, geneSet(mgc()$mg, info[1L], info[2L]))
+      if (is.null(stats)) {
+        coll <- name <- stats <- NULL
+      } else {
+        stats <- stats[order(logFC, decreasing=TRUE)]
+      }
+      # stats <- geneSet(mgc()$mg, info[1L], info[2L])
+      # stats <- stats[order(logFC, decreasing=TRUE)]
     }
 
     list(collection=coll, name=name, stats=stats,
