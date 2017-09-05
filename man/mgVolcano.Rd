@@ -10,7 +10,7 @@ mgVolcanoUI(id, x, stats = "dge", xaxis = "logFC", yaxis = "padj",
 
 mgVolcano(input, output, session, x, stats = "dge", xaxis = "logFC",
   yaxis = "pval", idx = "idx", tools = c("box_select", "reset", "save"),
-  width = NULL, height = NULL)
+  width = NULL, height = NULL, highlight = reactive(NULL))
 }
 \arguments{
 \item{id}{the shiny id of the output widget}
@@ -19,6 +19,9 @@ mgVolcano(input, output, session, x, stats = "dge", xaxis = "logFC",
 
 \item{stats}{the stats to pull from \code{x} (if necessary) to build the
 volcano for.}
+
+\item{highlight}{a reactive vector of featureIds that indicate which points
+to highlight on the volcano, irresespective of their "hexbin" status.}
 
 \item{x}{the name of the column from the stats table to use on x axis}
 

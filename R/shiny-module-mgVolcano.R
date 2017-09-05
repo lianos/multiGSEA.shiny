@@ -39,11 +39,13 @@ mgVolcanoUI <- function(id, x, stats='dge', xaxis='logFC', yaxis='padj',
 ##' @export
 ##' @importFrom shiny reactive observeEvent updateSliderInput
 ##' @importFrom shinyjs onclick toggle
+##' @param highlight a reactive vector of featureIds that indicate which points
+##'   to highlight on the volcano, irresespective of their "hexbin" status.
 ##' @rdname mgVolcano
 mgVolcano <- function(input, output, session,
                       x, stats='dge', xaxis='logFC', yaxis='pval', idx='idx',
                       tools=c('box_select', 'reset', 'save'),
-                      width=NULL, height=NULL) {
+                      width=NULL, height=NULL, highlight=reactive(NULL)) {
   onclick("settings", toggle(id="widgets", anim=TRUE))
   if (missing(idx)) {
     if (stats == 'dge') idx <- 'featureId'
@@ -74,6 +76,7 @@ mgVolcano <- function(input, output, session,
     xhex <- input$xhex
     yhex <- input$yhex
     p <- volcano_plot(x(), stats, xaxis, yaxis, idx, xhex=xhex, yhex=yhex,
+                      highlight=highlight(),
                       tools=tools, shiny_source='mgvolcano',
                       width=width, height=height)
     p

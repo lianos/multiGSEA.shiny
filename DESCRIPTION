@@ -1,7 +1,7 @@
 Package: multiGSEA.shiny
 Type: Package
 Title: Provides shinhy components to visualize multilGSEA results
-Version: 0.1.0
+Version: 0.1.1
 Author: Steve Lianoglou <lianoglou.steve@gene.com>
 Maintainer: Steve Lianoglou <lianoglou.steve@gene.com>
 Description: Provides shiny components to visualize and interact with gene set
