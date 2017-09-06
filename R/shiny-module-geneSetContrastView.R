@@ -132,7 +132,8 @@ geneSetContrastView <- function(input, output, session, mgc,
     req(gs())
     gs.stats <- req(gs()$stats)
     if (!is(gs.stats, 'data.frame')) {
-      browser()
+      # browser()
+      req(NULL)
     }
     renderFeatureStatsDataTable(gs.stats, feature.link.fn=feature.link.fn,
                                 filter='none')

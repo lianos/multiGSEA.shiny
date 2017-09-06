@@ -72,14 +72,15 @@ geneSetSelect <- function(input, output, session, mgc, server=TRUE,
       ## so I'm ensuring that the geneSet() call doesn't fail. If it does, it
       ## means that geneset you are looking for disappeared, likely due to
       ## the reason I stated above.
-      stats <- failWith(NULL, geneSet(mgc()$mg, info[1L], info[2L]))
+      stats <- failWith(NULL, {
+        geneSet(mgc()$mg, info[1L], info[2L], .external=FALSE)
+      })
       if (is.null(stats)) {
         coll <- name <- stats <- NULL
       } else {
         stats <- stats[order(logFC, decreasing=TRUE)]
+        stats <- as.data.frame(stats)
       }
-      # stats <- geneSet(mgc()$mg, info[1L], info[2L])
-      # stats <- stats[order(logFC, decreasing=TRUE)]
     }
 
     list(collection=coll, name=name, stats=stats,

@@ -76,7 +76,7 @@ constructGseaResultTable <- function(mg, method, fdr, prioritize=c('h')) {
     out[, collection := factor(collection, lvls, ordered=TRUE)]
     out <- out[order(mean.logFC.trim, decreasing=TRUE)]
   }
-  out
+  out %>% setDF
 }
 
 ##' Creates a DT::datatalbe of geneset level GSEA results for use in shiny bits
@@ -90,9 +90,11 @@ constructGseaResultTable <- function(mg, method, fdr, prioritize=c('h')) {
 ##' URL links for genesets using \code{\link{geneSetURL}}.
 ##' @return a DT::DataTable
 renderGseaResultTableDataTable <- function(x, method, mg, digits=3) {
-  stopifnot(is(x, 'data.table'))
+  stopifnot(is(x, 'data.frame'))
   stopifnot(is.character(method) && length(method) == 1L)
   stopifnot(is(mg, 'MultiGSEAResult'))
+
+  x <- setDT(copy(x))
 
   rcols <- c('collection'='collection', 'name'='name', 'n'='n',
              ## 'padj'='padj', 'padj.by.collection'='padjByColl', 'pval'='pval',
@@ -124,6 +126,8 @@ renderGseaResultTableDataTable <- function(x, method, mg, digits=3) {
     scrollX=TRUE,
     pageLength=length.opts[1L],
     lengthMenu=length.opts)
+
+  setDF(res)
   dtargs <- list(data=res, filter='top',
                  selection=list(mode='single', selected=NA, target='row'),
                  # extensions='Buttons',
