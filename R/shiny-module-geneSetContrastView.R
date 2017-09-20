@@ -61,7 +61,7 @@ geneSetContrastViewUI <- function(id, height="590px", width="400px") {
               column(
                 8,
                 selectInput(ns("gs_viz_type"), NULL,
-                            c('boxplot', 'density'), 'boxplot')),
+                            c('boxplot', 'density'), 'density')),
               column(
                 4,
                 selectInput(ns("gs_viz_stat"), NULL,
@@ -121,7 +121,6 @@ geneSetContrastView <- function(input, output, session, mgc,
     out
   })
 
-
   output$gs_viz <- renderPlotly({
     req(plt())
   })
@@ -131,7 +130,7 @@ geneSetContrastView <- function(input, output, session, mgc,
   output$gs_members <- DT::renderDataTable({
     req(gs())
     gs.stats <- req(gs()$stats)
-    if (!is(gs.stats, 'data.frame')) {
+    if (!is(gs.stats, 'data.table')) {
       # browser()
       req(NULL)
     }

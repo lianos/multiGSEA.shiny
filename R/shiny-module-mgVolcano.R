@@ -11,7 +11,8 @@
 ##' @param x the name of the column from the stats table to use on x axis
 ##' @param y the name of the column from the stats table to use on y axis
 mgVolcanoUI <- function(id, x, stats='dge', xaxis='logFC', yaxis='padj',
-                        idx='idx', hexbin=TRUE) {
+                        idx='idx', hexbin=TRUE, default_xhex=1,
+                        default_yhex=0.10) {
   ns <- NS(id)
   if (hexbin) {
     out <- tagList(
@@ -22,9 +23,9 @@ mgVolcanoUI <- function(id, x, stats='dge', xaxis='logFC', yaxis='padj',
         tags$div(
           id=ns('widgets'),
           sliderInput(
-            ns("xhex"), 'x filter', min=0, max=5, step=0.25, value=1),
+            ns("xhex"), 'x filter', min=0, max=5, step=0.25, value=default_xhex),
           sliderInput(
-            ns("yhex"), 'y filter', min=0, max=1, step=0.025, value=0.10))))
+            ns("yhex"), 'y filter', min=0, max=1, step=0.025, value=default_yhex))))
   } else {
     out <- plotlyOutput(ns("plot"))
   }
@@ -45,7 +46,8 @@ mgVolcanoUI <- function(id, x, stats='dge', xaxis='logFC', yaxis='padj',
 mgVolcano <- function(input, output, session,
                       x, stats='dge', xaxis='logFC', yaxis='pval', idx='idx',
                       tools=c('box_select', 'reset', 'save'),
-                      width=NULL, height=NULL, highlight=reactive(NULL)) {
+                      width=NULL, height=NULL, highlight=reactive(NULL),
+                      default_xhex=1, default_yhex=0.10, ...) {
   onclick("settings", toggle(id="widgets", anim=TRUE))
   if (missing(idx)) {
     if (stats == 'dge') idx <- 'featureId'
@@ -62,11 +64,11 @@ mgVolcano <- function(input, output, session,
   observeEvent(dat(), {
     if (!is.null(input$xhex)) {
       updateSliderInput(session, 'yhex', sprintf('%s filter', yaxis),
-                        min=0, max=1, step=0.025, value=0.10)
+                        min=0, max=1, step=0.025, value=default_yhex)
       # max.x <- ceiling(max(abs(dat()[['xaxis']]))) - 0.5
       max.x <- ceiling(max(abs(dat()[['.xvt']]))) - 0.5
       updateSliderInput(session, 'xhex', sprintf('%s filter', xaxis),
-                        min=0, max=max.x, step=0.25, value=1)
+                        min=0, max=max.x, step=0.25, value=default_xhex)
     }
   })
 
@@ -91,6 +93,7 @@ mgVolcano <- function(input, output, session,
   vals <- reactive({
     dat <- req(plt()) %>% plotly_data
     event <- event_data('plotly_selected', source='mgvolcano')
+    # browser()
     if (!is.null(event)) {
       # dat <- isolate(plt()) %>% plotly_data
       # selected <- subset(dat, featureId %in% event$key)

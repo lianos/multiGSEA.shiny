@@ -15,7 +15,7 @@ shinyServer(function(input, output, session) {
   })
 
   lfc <- reactive({
-    lfc <- req(mgc()$mg) %>% logFC(.external=FALSE)
+    lfc <- req(mgc()$mg) %>% logFC(as.dt=TRUE)
     lfc[order(logFC, decreasing=TRUE)]
   })
 
@@ -77,6 +77,7 @@ shinyServer(function(input, output, session) {
     res <- res.all[, list(symbol, featureId, logFC, pval, padj)]
 
     selected <- gene.volcano()
+    # browser()
     if (!is.null(selected)) {
       res <- subset(res, featureId %in% selected$featureId)
     }

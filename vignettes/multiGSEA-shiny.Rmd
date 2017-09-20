@@ -1,0 +1,17 @@
+---
+title: "Interactive Exploration MultiGSEAResults with multiGSEA.shiny"
+author: "Steve Lianoglou"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('multiGSEA.shiny')`"
+output:
+  rmarkdown::html_document:
+    self_contained: yes
+    highlight: pygments
+    toc: true
+    fig_width: 5
+vignette: >
+  %\VignetteIndexEntry{Interactive Exploration MultiGSEAResults with multiGSEA.shiny}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding[utf8]{inputenc}
+---
+

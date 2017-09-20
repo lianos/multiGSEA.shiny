@@ -73,13 +73,12 @@ geneSetSelect <- function(input, output, session, mgc, server=TRUE,
       ## means that geneset you are looking for disappeared, likely due to
       ## the reason I stated above.
       stats <- failWith(NULL, {
-        geneSet(mgc()$mg, info[1L], info[2L], .external=FALSE)
+        geneSet(mgc()$mg, info[1L], info[2L], as.dt=TRUE)
       })
       if (is.null(stats)) {
         coll <- name <- stats <- NULL
       } else {
         stats <- stats[order(logFC, decreasing=TRUE)]
-        stats <- as.data.frame(stats)
       }
     }
 
@@ -167,11 +166,11 @@ gs.render.select.ui <- function(ns, choices, server=TRUE,
 ##' @rdname geneSetSelectModule
 ##'
 ##' @param mg \code{MultiGSEAResult} to build options for
-##' @return \code{data.frame} to populate \code{choices} of
+##' @return \code{data.table} to populate \code{choices} of
 ##'   \code{selectizeInput}
 gs.select.choices <- function(mg, sep='_::_') {
-  out <- geneSets(mg, .external=FALSE)[, {
+  out <- geneSets(mg, as.dt=TRUE)[, {
     list(collection, label=name, value=paste(collection, name, sep=sep))
   }]
-  setDF(out)
+  out
 }

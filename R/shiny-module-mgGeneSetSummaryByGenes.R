@@ -39,11 +39,13 @@ mgGeneSetSummaryByGene <- function(input, output, session, mgc,
 
     mg.fids <- intersect(fids, featureIds(mg))
     if (length(mg.fids)) {
-      geneSetSummaryByGenes(mg, mg.fids, feature.rename='symbol',
-                            method=method, max.p=max.p, .external=FALSE)
+      out <- geneSetSummaryByGenes(mg, mg.fids, feature.rename='symbol',
+                                   method=method, max.p=max.p, as.dt=TRUE)
+      out <- out[order(n, decreasing=TRUE)]
     } else {
-      NULL
+      out <- NULL
     }
+    out
   })
 
   output$selected_message <- renderUI({
@@ -76,9 +78,9 @@ mgGeneSetSummaryByGene <- function(input, output, session, mgc,
     }]
 
     out <- round.dt(out)
-    DT::datatable(out, filter='top', escape=FALSE,
+    DT::datatable(setDF(out), filter='top', escape=FALSE,
                   selection=list(mode='single', selected=NA, target='row'),
-                  rownames=FALSE)
+                  rownames=FALSE, colnames=c("FDR"="padj"))
   })
 
   ## Return the selected geneset

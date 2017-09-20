@@ -67,7 +67,7 @@ insertPlotlyReset <- function(source, event=c('hover', 'click', 'selected')) {
 ##' @return a data.table of the statistics that match the filtering criteria.
 ##'   A 0-row data.table is returned if nothing passes.
 constructGseaResultTable <- function(mg, method, fdr, prioritize=c('h')) {
-  out <- result(mg, method, .external=FALSE)
+  out <- result(mg, method, as.dt=TRUE)
   out <- out[padj.by.collection <= fdr]
   if (nrow(out)) {
     colls <- sort(unique(out$collection))
@@ -76,7 +76,7 @@ constructGseaResultTable <- function(mg, method, fdr, prioritize=c('h')) {
     out[, collection := factor(collection, lvls, ordered=TRUE)]
     out <- out[order(mean.logFC.trim, decreasing=TRUE)]
   }
-  out %>% setDF
+  out
 }
 
 ##' Creates a DT::datatalbe of geneset level GSEA results for use in shiny bits
@@ -207,10 +207,9 @@ renderFeatureStatsDataTable <- function(x, features=NULL, digits=3,
                                         filter='none',
                                         length.opts=c(10, 25, 50, 100, 250)) {
   if (is(x, 'MultiGSEAResult')) {
-    x <- copy(logFC(x, .external=FALSE))
+    x <- copy(logFC(x, as.dt=TRUE))
   }
-  stopifnot(is(x, 'data.frame'), !is.null(x$featureId))
-  setDT(x)
+  stopifnot(is(x, 'data.table'), !is.null(x$featureId))
   order.dir <- match.arg(order.dir)
   if (is.character(features)) {
     x <- subset(x, featureId %in% features)
@@ -257,7 +256,7 @@ renderFeatureStatsDataTable <- function(x, features=NULL, digits=3,
     lengthMenu=length.opts,
     dom='ltipr')
   out <- DT::datatable(setDF(x), selection='none', escape=FALSE, rownames=FALSE,
-                       options=dt.opts, filter=filter)
+                       options=dt.opts, filter=filter, colnames=c("FDR"="padj"))
   roundDT(out)
 }
 
