@@ -56,7 +56,7 @@ mgVolcano <- function(input, output, session,
   ## Extract the data used in the volcano to keep it handy
   dat <- reactive({
     req(x())
-    volcano.stats.table(x(), stats, xaxis, yaxis, idx)
+    volcanoStatsTable(x(), stats, xaxis, yaxis, idx)
   })
 
   ## If UI is showing the hexbin sliders, fix ranges and labels when dat()
@@ -77,10 +77,10 @@ mgVolcano <- function(input, output, session,
     ns <- session$ns
     xhex <- input$xhex
     yhex <- input$yhex
-    p <- volcano_plot(x(), stats, xaxis, yaxis, idx, xhex=xhex, yhex=yhex,
-                      highlight=highlight(),
-                      tools=tools, shiny_source='mgvolcano',
-                      width=width, height=height)
+    p <- volcanoPlot(x(), stats, xaxis, yaxis, idx, xhex=xhex, yhex=yhex,
+                     highlight=highlight(),
+                     tools=tools, shiny_source='mgvolcano',
+                     width=width, height=height)
     p
   })
 
@@ -93,7 +93,6 @@ mgVolcano <- function(input, output, session,
   vals <- reactive({
     dat <- req(plt()) %>% plotly_data
     event <- event_data('plotly_selected', source='mgvolcano')
-    # browser()
     if (!is.null(event)) {
       # dat <- isolate(plt()) %>% plotly_data
       # selected <- subset(dat, featureId %in% event$key)
