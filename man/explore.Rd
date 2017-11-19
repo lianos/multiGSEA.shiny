@@ -7,7 +7,7 @@
 explore(x)
 }
 \arguments{
-\item{x}{A \code{MultiGSEAResult} object}
+\item{x}{A \code{MultiGSEAResult} object, or path to one as an *.rds}
 }
 \description{
 This will launch a shiny application that enables exploratory analysis of

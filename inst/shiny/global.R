@@ -1,4 +1,4 @@
-library(multiGSEA)
+library(multiGSEA.shiny)
 library(DT)
 
 ## Loading "standard" Libraries ------------------------------------------------

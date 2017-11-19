@@ -6,11 +6,12 @@
 \title{Creates a volcano plot from a source input}
 \usage{
 mgVolcanoUI(id, x, stats = "dge", xaxis = "logFC", yaxis = "padj",
-  idx = "idx", hexbin = TRUE)
+  idx = "idx", hexbin = TRUE, default_xhex = 1, default_yhex = 0.1)
 
 mgVolcano(input, output, session, x, stats = "dge", xaxis = "logFC",
   yaxis = "pval", idx = "idx", tools = c("box_select", "reset", "save"),
-  width = NULL, height = NULL, highlight = reactive(NULL))
+  width = NULL, height = NULL, highlight = reactive(NULL),
+  default_xhex = 1, default_yhex = 0.1, ...)
 }
 \arguments{
 \item{id}{the shiny id of the output widget}

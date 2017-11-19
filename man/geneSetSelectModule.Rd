@@ -50,7 +50,7 @@ on the server side (default: \code{TRUE})}
 \value{
 a properly wired \code{\link[shiny]{selectizeInput}}
 
-\code{data.frame} to populate \code{choices} of
+\code{data.table} to populate \code{choices} of
   \code{selectizeInput}
 }
 \description{

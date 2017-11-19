@@ -10,7 +10,9 @@
 ##'
 ##' @export
 ##' @importFrom shiny runApp
-##' @param x A \code{MultiGSEAResult} object
+##' @param x A \code{MultiGSEAResult} object, or path to one as an *.rds. If
+##'   missing, the shiny app will load without a \code{MultiGSEAResult} object
+##'   to explore, and the user can upload one into the app.
 ##' @examples
 ##' \dontrun{
 ##' vm <- exampleExpressionSet()
@@ -19,9 +21,12 @@
 ##' explore(mg)
 ##' }
 explore <- function(x) {
-  stopifnot(is(x, 'MultiGSEAResult'))
-  options(EXPLORE_MULTIGSEA_RESULT=x)
-  on.exit(options(EXPLORE_MULTIGSEA_RESULT=NULL))
+  if (!missing(x)) {
+    if (is.character(x)) x <- readRDS(x)
+    stopifnot(is(x, 'MultiGSEAResult'))
+    options(EXPLORE_MULTIGSEA_RESULT=x)
+    on.exit(options(EXPLORE_MULTIGSEA_RESULT=NULL))
+  }
   runApp(system.file('shiny', package='multiGSEA.shiny'))
 }
 
