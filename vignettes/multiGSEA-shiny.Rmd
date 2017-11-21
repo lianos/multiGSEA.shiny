@@ -15,3 +15,40 @@ vignette: >
   %\VignetteEncoding[utf8]{inputenc}
 ---
 
+# Overview
+
+One of the main functionalities provided by the multiGSEA package is the
+\code{multiGSEA} function itself which provides a container that holds the
+results of the variety of gene set enrichement analyses performed by the
+function as well as the differential expression results generated for the
+sampe comparison.
+
+This package provides a number of shiny modules that are stitched together
+into an app invoked by the \code{explore} function which allows the user
+to interactively explore the gene set enrichment analysis results from each
+of the individual methods as well as the individual gene level differential
+expression statistics.
+
+You will first have to run `multiGSEA` on your dataset, or load a serialized
+version of it from your disk:
+
+```{r}
+library(multiGSEA)
+library(multiGSEA.shiny)
+mg <- exampleMultiGSEAResult()
+```
+
+Then invoke the `explore` method to look at the results
+
+```{r, eval=FALSE}
+explore(mg)
+```
+
+Every bit of this application is interactive. Go ahead and play with it while
+we expand on this documentation further ...
+
+
+One piece of functionality that is non-obvious but quite useful is that when
+you select genes (dots) on the various interactive plots that are generated,
+a table is generated at the bottom of the application that lists the other
+gene sets that those genes you selected are members of,
