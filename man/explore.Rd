@@ -7,7 +7,9 @@
 explore(x)
 }
 \arguments{
-\item{x}{A \code{MultiGSEAResult} object, or path to one as an *.rds}
+\item{x}{A \code{MultiGSEAResult} object, or path to one as an *.rds. If
+missing, the shiny app will load without a \code{MultiGSEAResult} object
+to explore, and the user can upload one into the app.}
 }
 \description{
 This will launch a shiny application that enables exploratory analysis of
