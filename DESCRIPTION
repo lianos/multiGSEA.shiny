@@ -1,6 +1,6 @@
 Package: multiGSEA.shiny
 Type: Package
-Title: Provides shinhy components to visualize multilGSEA results
+Title: Provides shiny components to visualize multilGSEA results
 Version: 0.1.7
 Author: Steve Lianoglou <lianoglou.steve@gene.com>
 Maintainer: Steve Lianoglou <lianoglou.steve@gene.com>
@@ -13,7 +13,6 @@ Depends:
     multiGSEA
 Imports:
     shiny,
-    shinyjs,
     miniUI,
     DT,
     shinydashboard,

@@ -4,7 +4,6 @@ library(DT)
 ## Loading "standard" Libraries ------------------------------------------------
 library(shiny)
 library(shinydashboard)
-library(shinyjs)
 library(data.table)
 library(dplyr)
 library(dtplyr)
