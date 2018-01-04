@@ -2,8 +2,10 @@ Package: multiGSEA.shiny
 Type: Package
 Title: Provides shiny components to visualize multilGSEA results
 Version: 0.1.7
-Author: Steve Lianoglou <lianoglou.steve@gene.com>
-Maintainer: Steve Lianoglou <lianoglou.steve@gene.com>
+Authors@R: c(
+    person("Steve", "Lianoglou", , "slianoglou@gmail.com", c("aut", "cre")),
+    person("Genentech", role = c("cph", "fnd"))
+    )
 Description: Provides shiny components to visualize and interact with gene set
     enrichment analyses performed by the multiGSEA package.
 License: 	MIT + file LICENSE
