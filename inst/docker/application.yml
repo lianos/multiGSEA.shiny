@@ -1,0 +1,81 @@
+# This file needs to be next to the shinyproxy-1.0.2.jar. We then launch
+# shinyproxy like so:
+#
+#     $ java -jar shinyproxy-1.0.2.jar
+shiny:
+  proxy:
+    title: Denali Therapeutics
+    logo-url: http://www.openanalytics.eu/sites/www.openanalytics.eu/themes/oa/logo.png
+    landing-page: /
+    container-wait-time: 20000
+    heartbeat-rate: 10000
+    heartbeat-timeout: 60000
+    port: 8080
+    authentication: ldap
+    admin-groups: scientists
+    # Example: 'simple' authentication configuration
+    users:
+    - name: jack
+      password: password
+      groups: scientists
+    - name: jeff
+      password: password
+      groups: mathematicians
+    # Example: 'ldap' authentication configuration, see note below
+    ldap:
+      url: ldap://ldap.forumsys.com:389/dc=example,dc=com
+      user-dn-pattern: uid={0}
+      group-search-base:
+      group-search-filter: (uniqueMember={0})
+      manager-dn: cn=read-only-admin,dc=example,dc=com
+      manager-password: password
+    # Docker configuration
+    #docker:
+    #  cert-path: /home/none
+    #  url: http://localhost:2375
+    #  port-range-start: 20000
+    # Docer setup on OSX. Need to install VirtualBox, then create default
+    # docker-machine, then query its settings:
+    #   https://support.openanalytics.eu/t/shinyproxy-on-osx/44/2
+    docker:
+      cert-path: /Users/lianoglou/.docker/machine/machines/default
+      url: https://192.168.99.100:2376
+      host: 192.168.99.100
+      port-range-start: 20000
+    support:
+      container-log-path: ./container-logs
+      mail-to-address: slianoglou@gmail.com
+  apps:
+  - name: multiGSEA
+    display-name: multiGSEA Explorer
+    description: Application that enables interactive exploration of GSEA results.
+    docker-cmd: ["R", "-e", "multiGSEA.shiny::explore()"]
+    docker-image: lianos/multigsea-shinyproxy
+    groups: scientists, mathematicians
+  - name: 01_hello
+    display-name: Hello Application
+    description: Application which demonstrates the basics of a Shiny app
+    docker-cmd: ["R", "-e", "shinyproxy::run_01_hello()"]
+    docker-image: openanalytics/shinyproxy-demo
+    groups: scientists, mathematicians
+  - name: 06_tabsets
+    docker-cmd: ["R", "-e", "shinyproxy::run_06_tabsets()"]
+    docker-image: openanalytics/shinyproxy-demo
+    groups: scientists
+
+logging:
+  file:
+    shinyproxy.log
+
+# Using test LDAP server:
+# https://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/
+#
+# groups: one or more groups (e.g. LDAP groups) a user needs to belong to in
+#         order to gain access to the app; this field allows to authorize access
+#         per app; to test the authorization with LDAP authentication, one can
+#         use gauss with password password as an example mathematician; user
+#         tesla with password password is one of the example scientists. Other
+#         users are described in link above.
+#
+# Apps for which `groups` are not specified are treated as "public", which is
+# to say that all authenticated users can access.
