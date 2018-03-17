@@ -30,21 +30,24 @@ shiny:
       manager-dn: cn=read-only-admin,dc=example,dc=com
       manager-password: password
     # Docker configuration
-    #docker:
-    #  cert-path: /home/none
-    #  url: http://localhost:2375
-    #  port-range-start: 20000
+    # You have to ensure that your docker daemon is listening to port 2375:
+    # $ dockerd -H tcp://127.0.0.1:2375
+    # But you will want to set that up in a config somewhere
+    docker:
+      cert-path: /home/none
+      url: http://localhost:2375
+      port-range-start: 20000
     # Docer setup on OSX. Need to install VirtualBox, then create default
     # docker-machine, then query its settings:
     #   https://support.openanalytics.eu/t/shinyproxy-on-osx/44/2
-    docker:
-      cert-path: /Users/lianoglou/.docker/machine/machines/default
-      url: https://192.168.99.100:2376
-      host: 192.168.99.100
-      port-range-start: 20000
-    support:
-      container-log-path: ./container-logs
-      mail-to-address: slianoglou@gmail.com
+    #docker:
+    #  cert-path: /Users/lianoglou/.docker/machine/machines/default
+    #  url: https://192.168.99.100:2376
+    #  host: 192.168.99.100
+    #  port-range-start: 20000
+    #support:
+    #  container-log-path: ./container-logs
+    #  mail-to-address: slianoglou@gmail.com
   apps:
   - name: multiGSEA
     display-name: multiGSEA Explorer
