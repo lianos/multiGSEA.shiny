@@ -1,0 +1,33 @@
+## layered ontop of lianos/multigsea so that the application can be deployed
+## via shinyproxy
+
+FROM lianos/multigsea
+MAINTAINER Steve Lianoglou (slianoglou@gmail.com)
+
+# Tweak R_HOME/etc/Rprofile.site to customize `options` values.
+#
+# To find the value of `R_HOME` for your installation, you can attach yourself
+# to a running docker container and run the following command in R:
+#
+#   R> R.home(component = "home")
+#
+# For the rocker/shiny based images, R_HOME is `/usr/lib/R`, and the
+# `etc/Rprofile.site` file is actually a symlink:
+#
+#   $ ls -l /usr/lib/R/etc/Rprofile.site
+#   lrwxrwxrwx 1 root root 20 Mar 11 13:41 /usr/lib/R/etc/Rprofile.site -> /etc/R/Rprofile.site
+
+COPY Rprofile.site /etc/R/Rprofile.site
+
+EXPOSE 3838
+
+CMD ["R", "-e", "multiGSEA.shiny::explore()"]
+
+# You then build this, like so:
+#
+#     $ docker build -f Dockerfile-shinyproxy -t lianos/multigsea-shinyproxy:latest .
+#
+# Debugging applications that fail to launch:
+#
+# * Check if there are any errors when you launch manually:
+#   $ docker run -p 3838:3838 lianos/multigsea-shinyproxy R -e 'multiGSEA.shiny::explore()'

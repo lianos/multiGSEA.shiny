@@ -1,0 +1,92 @@
+## This creates a Docker image that will make the multiGSEA.shiny::explore()
+## application available on http://localhost/multiGSEA
+##
+## tips: http://tamaszilagyi.com/blog/dockerized-shiny-app-development/
+
+## Start with the base shiny image
+FROM rocker/shiny
+MAINTAINER Steve Lianoglou (slianoglou@gmail.com)
+
+## install R package dependencies (and clean up)
+RUN apt-get update && apt-get install -y \
+    gnupg2 \
+    libssl-dev \
+    libssh2-1-dev \
+    libxml2 \
+    libxml2-dev \
+    libv8-3.14-dev \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/ \
+  && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
+
+## install packages from CRAN (and clean up)
+RUN Rscript -e "install.packages(c(\
+      'data.table', \
+      'devtools', \
+      'DT', \
+      'dtplyr', \
+      'KernSmooth', \
+      'Matrix', \
+      'matrixStats', \
+      'miniUI', \
+      'plotly', \
+      'reshape2', \
+      'rmarkdown', \
+      'shiny', \
+      'shinydashboard', \
+      'shinyjs', \
+      'statmod', \
+      'tidyverse', \
+      'V8', \
+      'webdriver', \
+      'yaml'), \
+    repos='https://cran.rstudio.com/')" \
+  && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
+
+## install packages from Bioconductor (and clean up)
+RUN Rscript -e "source('https://bioconductor.org/biocLite.R'); \
+    biocLite(c(\
+      'Biobase', \
+      'BiocGenerics', \
+      'BiocParallel', \
+      'ComplexHeatmap', \
+      'edgeR', \
+      'fgsea', \
+      'GSEABase', \
+      'GSVA', \
+      'SummarizedExperiment'))" \
+  && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
+
+## install multiGSEA from github
+RUN Rscript -e "devtools::install_github('lianos/multiGSEA')"
+RUN Rscript -e "devtools::install_github('lianos/multiGSEA.shiny')"
+RUN Rscript -e "devtools::install_github('lianos/GeneSetDb.MSigDB.Hsapiens.v61')"
+RUN Rscript -e "devtools::install_github('lianos/GeneSetDb.MSigDB.Mmusculus.v61')"
+RUN rm -rf /tmp/downloaded_packages/ /tmp/*.rds
+
+## install phantomjs
+RUN Rscript -e "webdriver::install_phantomjs()"
+
+RUN cp -Rf `Rscript -e "cat(system.file('shiny', package = 'multiGSEA.shiny'))"` /srv/shiny-server/multiGSEA
+RUN chmod -Rf 755 /srv/shiny-server/multiGSEA
+
+# You then build this, like so:
+#
+#     $ docker build -f Dockerfile-base -t lianos/multigsea:latest .
+#
+# Then run it like so:
+#
+#     $ docker run -d -p 80:3838 --name multigsea lianos/multigsea:latest
+#
+# You can log into bash prompt of the running container like so:
+#
+#     $ docker exec -i -t multigsea /bin/bash
+#
+# And you can acces the multiGSEA shiny app like so:
+#
+#     http://localhost/multiGSEA
+#
+# once container is done you can remove it:
+#
+#     $ docker rm multigsea
+
