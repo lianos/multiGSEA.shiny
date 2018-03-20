@@ -1,7 +1,7 @@
 # This file needs to be next to the shinyproxy-1.0.2.jar. We then launch
 # shinyproxy like so:
 #
-#     $ java -jar shinyproxy-1.0.2.jar
+#     $ java -jar shinyproxy-1.0.2.jar &
 shiny:
   proxy:
     title: Denali Therapeutics
@@ -11,24 +11,17 @@ shiny:
     heartbeat-rate: 10000
     heartbeat-timeout: 60000
     port: 8080
-    authentication: ldap
+    #authentication: ldap
     admin-groups: scientists
-    # Example: 'simple' authentication configuration
-    users:
-    - name: jack
-      password: password
-      groups: scientists
-    - name: jeff
-      password: password
-      groups: mathematicians
+    authentication: none
     # Example: 'ldap' authentication configuration, see note below
-    ldap:
-      url: ldap://ldap.forumsys.com:389/dc=example,dc=com
-      user-dn-pattern: uid={0}
-      group-search-base:
-      group-search-filter: (uniqueMember={0})
-      manager-dn: cn=read-only-admin,dc=example,dc=com
-      manager-password: password
+    #ldap:
+    #  url: ldap://ldap.forumsys.com:389/dc=example,dc=com
+    #  user-dn-pattern: uid={0}
+    #  group-search-base:
+    #  group-search-filter: (uniqueMember={0})
+    #  manager-dn: cn=read-only-admin,dc=example,dc=com
+    #  manager-password: password
     # Docker configuration
     # You have to ensure that your docker daemon is listening to port 2375.
     # How you configure this is distribution-dependent.
@@ -42,18 +35,7 @@ shiny:
     description: Application that enables interactive exploration of GSEA results.
     docker-cmd: ["R", "-e", "multiGSEA.shiny::explore()"]
     docker-image: lianos/multigsea-shinyproxy
-    groups: scientists, mathematicians
-  - name: 01_hello
-    display-name: Hello Application
-    description: Application which demonstrates the basics of a Shiny app
-    docker-cmd: ["R", "-e", "shinyproxy::run_01_hello()"]
-    docker-image: openanalytics/shinyproxy-demo
-    groups: scientists, mathematicians
-  - name: 06_tabsets
-    docker-cmd: ["R", "-e", "shinyproxy::run_06_tabsets()"]
-    docker-image: openanalytics/shinyproxy-demo
-    groups: scientists
-
+    #groups: scientists, mathematicians
 logging:
   file:
     shinyproxy.log
