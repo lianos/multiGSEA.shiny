@@ -11,9 +11,9 @@ shiny:
     heartbeat-rate: 10000
     heartbeat-timeout: 60000
     port: 8080
-    #authentication: ldap
-    admin-groups: scientists
     authentication: none
+    #authentication: ldap
+    #admin-groups: scientists
     # Example: 'ldap' authentication configuration, see note below
     #ldap:
     #  url: ldap://ldap.forumsys.com:389/dc=example,dc=com
