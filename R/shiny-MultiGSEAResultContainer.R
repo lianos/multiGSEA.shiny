@@ -25,7 +25,7 @@ MultiGSEAResultContainer <- function(x) {
   }
 
   if (!is(mg, 'MultiGSEAResult')) {
-    stop("Don't know how to create container from: ", class(x)[1L])
+    stop("Don't know how to create container from: ", class(mg)[1L])
   }
 
   methods <- local({

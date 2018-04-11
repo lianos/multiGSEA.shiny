@@ -1,5 +1,3 @@
-library(miniUI)
-
 shinyUI(fluidPage(
   title="multiGSEA Explorer",
   useShinyjs(),

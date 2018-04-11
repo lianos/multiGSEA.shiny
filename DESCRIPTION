@@ -1,10 +1,11 @@
 Package: multiGSEA.shiny
 Type: Package
 Title: Provides shiny components to visualize multilGSEA results
-Version: 0.1.7
+Version: 0.1.8
 Authors@R: c(
     person("Steve", "Lianoglou", , "slianoglou@gmail.com", c("aut", "cre")),
-    person("Genentech", role = c("cph", "fnd"))
+    person("Genentech", role = c("cph", "fnd")),
+    person("Denali Therapeutics", role = c("fnd"))
     )
 Description: Provides shiny components to visualize and interact with gene set
     enrichment analyses performed by the multiGSEA package.
@@ -14,12 +15,13 @@ LazyData: true
 Depends:
     multiGSEA
 Imports:
+    data.table,
+    dplyr,
+    dtplyr,
     shiny,
     miniUI,
     DT,
     shinydashboard,
-    dplyr,
-    data.table,
     plotly,
     shinyjs,
     V8
