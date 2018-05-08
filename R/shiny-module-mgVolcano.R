@@ -91,11 +91,10 @@ mgVolcano <- function(input, output, session,
   ## This module returns a data.frame containing info genes that are brushed
   ## by the user
   vals <- reactive({
-    dat <- req(plt()) %>% plotly_data
+    dat <- req(plt())
+    dat <- plotly_data(dat)
     event <- event_data('plotly_selected', source='mgvolcano')
     if (!is.null(event)) {
-      # dat <- isolate(plt()) %>% plotly_data
-      # selected <- subset(dat, featureId %in% event$key)
       out <- subset(dat, featureId %in% event$key)
     } else {
       out <- NULL

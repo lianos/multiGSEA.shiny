@@ -15,7 +15,8 @@ shinyServer(function(input, output, session) {
   })
 
   lfc <- reactive({
-    lfc <- req(mgc()$mg) %>% logFC(as.dt=TRUE)
+    lfc <- req(mgc()$mg)
+    lfc <- logFC(lfc, as.dt=TRUE)
     lfc[order(logFC, decreasing=TRUE)]
   })
 

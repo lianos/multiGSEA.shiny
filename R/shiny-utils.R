@@ -138,7 +138,8 @@ renderGseaResultTableDataTable <- function(x, method, mg, digits=3) {
                  # extensions='Buttons',
                  escape=FALSE, rownames=FALSE,
                  options=dt.opts)
-  do.call(DT::datatable, dtargs) %>% roundDT(digits=digits)
+  out <- do.call(DT::datatable, dtargs)
+  roundDT(out, digits=digits)
 }
 
 ## Gene evel Table Helpers =====================================================

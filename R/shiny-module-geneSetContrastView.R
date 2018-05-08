@@ -112,8 +112,6 @@ geneSetContrastView <- function(input, output, session, mgc,
   selected_features <- reactive({
     event <- event_data('plotly_selected', source='gs_viz')
     if (!is.null(event)) {
-      # dat <- isolate(plt()) %>% plotly_data
-      # selected <- subset(dat, featureId %in% event$key)
       out <- event$key
     } else {
       out <- character()
