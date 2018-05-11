@@ -18,11 +18,11 @@ Imports:
     data.table,
     dplyr,
     dtplyr,
-    shiny,
-    miniUI,
     DT,
-    shinydashboard,
+    miniUI,
     plotly,
+    shiny,
+    shinydashboard,
     shinyjs,
     V8
 RoxygenNote: 6.0.1
