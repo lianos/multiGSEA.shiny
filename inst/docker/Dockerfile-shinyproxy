@@ -30,4 +30,5 @@ CMD ["R", "-e", "multiGSEA.shiny::explore()"]
 # Debugging applications that fail to launch:
 #
 # * Check if there are any errors when you launch manually:
-#   $ docker run -p 3838:3838 lianos/multigsea-shinyproxy R -e 'multiGSEA.shiny::explore()'
+#   $ docker run -p 3838:3838 lianos/multigsea-shinyproxy
+
