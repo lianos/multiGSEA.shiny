@@ -2,7 +2,7 @@
 ## via shinyproxy
 
 FROM lianos/multigsea
-MAINTAINER Steve Lianoglou (slianoglou@gmail.com)
+LABEL maintainer="Steve Lianoglou (slianoglou@gmail.com)"
 
 # Tweak R_HOME/etc/Rprofile.site to customize `options` values.
 #

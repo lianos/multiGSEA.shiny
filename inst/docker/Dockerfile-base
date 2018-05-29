@@ -5,7 +5,7 @@
 
 ## Start with the base shiny image
 FROM rocker/shiny
-MAINTAINER Steve Lianoglou (slianoglou@gmail.com)
+LABEL maintainer="Steve Lianoglou (slianoglou@gmail.com)"
 
 ## install some system dependencies we want our server to have
 RUN apt-get update && apt-get install -y \
