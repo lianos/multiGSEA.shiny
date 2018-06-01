@@ -24,5 +24,6 @@ if (!interactive()) {
 
 ## By default shiny limits upload size to 5 MB, let's change this to 30MB
 ## (which is kind of big, no?)
-options(shiny.maxRequestSize=30*1024^2)
+# options(shiny.maxRequestSize=30*1024^2)
+options(shiny.maxRequestSize=Inf)
 
