@@ -47,7 +47,7 @@ mgVolcano <- function(input, output, session,
                       x, stats='dge', xaxis='logFC', yaxis='pval', idx='idx',
                       tools=c('box_select', 'reset', 'save'),
                       width=NULL, height=NULL, highlight=reactive(NULL),
-                      default_xhex=1, default_yhex=0.10, ...) {
+                      default_xhex=1, default_yhex=0.10, webgl = FALSE, ...) {
   onclick("settings", toggle(id="widgets", anim=TRUE))
   if (missing(idx)) {
     if (stats == 'dge') idx <- 'featureId'
@@ -81,6 +81,10 @@ mgVolcano <- function(input, output, session,
                      highlight=highlight(),
                      tools=tools, shiny_source='mgvolcano',
                      width=width, height=height)
+    if (webgl) {
+      p <- toWebGL(p)
+    }
+
     p
   })
 

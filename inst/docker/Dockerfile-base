@@ -28,7 +28,7 @@ RUN Rscript -e "source('https://bioconductor.org/biocLite.R'); \
       'webdriver', \
       'devtools', \
       'lianos/multiGSEA', \
-      'lianos/multiGSEA.shiny', \
+      'lianos/multiGSEA.shiny',  \
       'lianos/GeneSetDb.MSigDB.Hsapiens.v61', \
       'lianos/GeneSetDb.MSigDB.Mmusculus.v61'))" \
   && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
