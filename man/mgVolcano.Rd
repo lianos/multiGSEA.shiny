@@ -9,9 +9,9 @@ mgVolcanoUI(id, x, stats = "dge", xaxis = "logFC", yaxis = "padj",
   idx = "idx", hexbin = TRUE, default_xhex = 1, default_yhex = 0.1)
 
 mgVolcano(input, output, session, x, stats = "dge", xaxis = "logFC",
-  yaxis = "pval", idx = "idx", tools = c("box_select", "reset", "save"),
-  width = NULL, height = NULL, highlight = reactive(NULL),
-  default_xhex = 1, default_yhex = 0.1, ...)
+  yaxis = "pval", idx = "idx", tools = c("box_select", "reset",
+  "save"), width = NULL, height = NULL, highlight = reactive(NULL),
+  default_xhex = 1, default_yhex = 0.1, webgl = FALSE, ...)
 }
 \arguments{
 \item{id}{the shiny id of the output widget}

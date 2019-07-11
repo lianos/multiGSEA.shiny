@@ -10,8 +10,8 @@
 \usage{
 geneSetSelectUI(id, label = "Select Gene Set")
 
-geneSetSelect(input, output, session, mgc, server = TRUE, maxOptions = Inf,
-  sep = "_::_")
+geneSetSelect(input, output, session, mgc, server = TRUE,
+  maxOptions = Inf, sep = "_::_")
 
 updateGeneSetSelect(session, id, label = NULL, choices = NULL,
   selected = NULL, options = list(), server = FALSE)
@@ -57,8 +57,6 @@ a properly wired \code{\link[shiny]{selectizeInput}}
 This code was inspired from the
 \href{https://gist.github.com/MarkEdmondson1234/7e56ee7ac5caa74224327489b0849e61}{dynamicSelectShinyModule.R}
 gist.
-
-Builds a selectizeInput widget that is specific to a MultiGSEAResult
 
 Note that when returning a data.frame for the choices of a selectizeInput,
 we need a column called "value" and a column called "label".

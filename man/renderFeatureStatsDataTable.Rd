@@ -6,8 +6,8 @@
 \usage{
 renderFeatureStatsDataTable(x, features = NULL, digits = 3,
   columns = NULL, feature.link.fn = NULL, order.by = "logFC",
-  order.dir = c("desc", "asc"), filter = "none", length.opts = c(10, 25,
-  50, 100, 250))
+  order.dir = c("desc", "asc"), filter = "none", length.opts = c(10,
+  25, 50, 100, 250))
 }
 \arguments{
 \item{x}{A \code{MultiGSEAResult} or \code{data.frame} of feature level

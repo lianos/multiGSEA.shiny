@@ -1,25 +1,23 @@
 Package: multiGSEA.shiny
 Type: Package
 Title: Provides shiny components to visualize multilGSEA results
-Version: 0.1.9
+Version: 0.1.10
 Authors@R: c(
     person("Steve", "Lianoglou", , "slianoglou@gmail.com", c("aut", "cre")),
-    person("Genentech", role = c("cph", "fnd")),
-    person("Denali Therapeutics", role = c("fnd"))
-    )
+    person("Denali Therapeutics", role = c("cph", "fnd"), comment = "2018+"),
+    person("Genentech", role = c("cph", "fnd"), comment = "2014 - 2017"))
 Description: Provides shiny components to visualize and interact with gene set
     enrichment analyses performed by the multiGSEA package.
-License: 	MIT + file LICENSE
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends:
-    multiGSEA
 Imports:
     data.table,
     dplyr,
     dtplyr,
     DT,
     miniUI,
+    multiGSEA,
     plotly,
     shiny,
     shinydashboard,
@@ -29,5 +27,4 @@ Remotes:
     lianos/multiGSEA@develop,
     lianos/multiGSEA.shiny@develop
 biocViews: DifferentialExpression, GeneExpression, GeneSetEnrichment, Pathways
-RoxygenNote: 6.0.1
-biocViews: Pathways, GeneSetEnrichment, DifferentialExpression, GO, RNASeq
+RoxygenNote: 6.1.1

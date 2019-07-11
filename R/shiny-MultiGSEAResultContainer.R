@@ -36,7 +36,8 @@ MultiGSEAResultContainer <- function(x) {
       out <- character()
     } else {
       ## I am biased and prefer to show these methods first, if available
-      pref <- c('camera', 'goseq', 'goseq.up', 'goseq.down')
+      pref <- c('camera', 'cameraPR', 'fgsea',
+                'goseq', 'goseq.up', 'goseq.down')
       pref <- pref[pref %in% tmp]
       out <- c(pref, setdiff(tmp, pref))
     }

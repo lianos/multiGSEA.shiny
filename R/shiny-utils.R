@@ -38,6 +38,9 @@ explore <- function(x) {
 ##' See:
 ##' https://community.plot.ly/t/reseting-click-events/2718/2
 ##' https://stackoverflow.com/questions/44412382/
+##'
+##' @noRd
+##' @importFrom shinyjs extendShinyjs js
 insertPlotlyReset <- function(source, event=c('hover', 'click', 'selected')) {
   stopifnot(is.character(source), length(source) == 1L)
   event <- match.arg(event)
