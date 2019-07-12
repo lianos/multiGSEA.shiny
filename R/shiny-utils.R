@@ -226,7 +226,13 @@ renderFeatureStatsDataTable <- function(x, features=NULL, digits=3,
 
   ## Figure out what columns to keep in the outgoing datatable
   if (missing(columns)) {
-    columns <- c('symbol', 'featureId', 'logFC', 'pval', 'padj')
+    # at this point, the "name" column is the geneset name
+
+    # support featureId or feature_id columns # dataframe-refactor
+    fid <- intersect(c("featureId", "feature_id"), colnames(x))[1]
+    if (is.na(fid)) fid <- character()
+    columns <- c('symbol', fid, 'logFC', 'pval', 'padj', 'F', 't')
+    columns <- intersect(columns, colnames(x))
   } else if (is.null(columns)) {
     columns <- colnames(x)
   }
@@ -243,12 +249,18 @@ renderFeatureStatsDataTable <- function(x, features=NULL, digits=3,
   columns <- intersect(columns, colnames(x))
   x <- x[, columns, with=FALSE]
 
+  # remove all NA columns # dataframe-refactor
+  for (cname in columns) {
+    if (all(is.na(x[[cname]]))) x[, (cname) := NULL]
+  }
+
   if (is.function(feature.link.fn)) {
     x <- feature.link.fn(x)
   }
   if (!is.null(order.by)) {
     x <- setorderv(x, order.by, order=if (order.dir == 'asc') 1L else -1L)
   }
+
 
   ## Tweak length.opts
   if (nrow(x) <= 10) {
@@ -264,8 +276,14 @@ renderFeatureStatsDataTable <- function(x, features=NULL, digits=3,
     pageLength=length.opts[1L],
     lengthMenu=length.opts,
     dom='ltipr')
+
+  rename.cols <- c("FDR" = "padj")
+  rename.cols <- rename.cols[rename.cols %in% colnames(x)]
+  if (length(rename.cols) == 0) {
+    rename.cols <- colnames(x)
+  }
   out <- DT::datatable(setDF(x), selection='none', escape=FALSE, rownames=FALSE,
-                       options=dt.opts, filter=filter, colnames=c("FDR"="padj"))
+                       options=dt.opts, filter=filter, colnames=rename.cols)
   roundDT(out)
 }
 
@@ -346,7 +364,8 @@ roundDT <- function(x, digits=3) {
     return(x)
   }
   round.me <- sapply(x$x$data, function(x) {
-    is.numeric(x) && any(as.integer(x) != x)
+    # half baked test to see if the numeric is integerish
+    is.numeric(x) && any(as.integer(x) != x, na.rm = TRUE)
   })
   if (any(round.me)) {
     x <- formatRound(x, round.me, digits=digits)
