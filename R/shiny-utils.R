@@ -105,7 +105,8 @@ renderGseaResultTableDataTable <- function(x, method, mg, digits=3) {
   x <- setDT(copy(x))
 
   rcols <- c('collection'='collection', 'name'='name', 'n'='n',
-             ## 'padj'='padj', 'padj.by.collection'='padjByColl', 'pval'='pval',
+             ## 'padj'='padj', 'padj.by.collection'='padjByColl',
+             'pval'='pval',
              'padj.by.collection'='FDR',
              'mean.logFC.trim'='logFC', 'n.sig.up'='nSigUp',
              'n.sig.down'='nSigDown', 'n.up'='nUp', 'n.down'='nDown')

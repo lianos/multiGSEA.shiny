@@ -1,7 +1,7 @@
 Package: multiGSEA.shiny
 Type: Package
 Title: Provides shiny components to visualize multilGSEA results
-Version: 0.1.12
+Version: 0.1.13
 Authors@R: c(
     person("Steve", "Lianoglou", , "slianoglou@gmail.com", c("aut", "cre")),
     person("Denali Therapeutics", role = c("cph", "fnd"), comment = "2018+"),
