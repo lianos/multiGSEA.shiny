@@ -154,7 +154,7 @@ renderGseaResultTableDataTable <- function(x, method, mg, digits=3) {
 ##' When listing features in an interactive table, it's often useful to link
 ##' the feature to an external webpage that has more information about that
 ##' feature. Functions to genes to their NCBI or GeneCards webpage via their
-##' \code{featureId} are provided via \code{ncbi.entrez.link} and
+##' \code{feature_id} are provided via \code{ncbi.entrez.link} and
 ##' \code{genecards.entrez.link}. The column used to transform into a link
 ##' is specified by \code{link.col}.
 ##'
@@ -168,7 +168,7 @@ renderGseaResultTableDataTable <- function(x, method, mg, digits=3) {
 ##' @return a modified \code{x} with an html link in \code{link.col}
 ncbi.entrez.link <- function(x, link.col='symbol') {
   if (is.character(link.col) && is.character(x[[link.col]])) {
-    url <- sprintf('https://www.ncbi.nlm.nih.gov/gene/%s', x$featureId)
+    url <- sprintf('https://www.ncbi.nlm.nih.gov/gene/%s', x$feature_id)
     html <- sprintf('<a href="%s" target="_blank">%s</a>', url, x$symbol)
     x[[link.col]] <- html
   }
@@ -181,7 +181,7 @@ ncbi.entrez.link <- function(x, link.col='symbol') {
 genecards.entrez.link <- function(x, link.col='symbol') {
   if (is.character(link.col) && is.character(x[[link.col]])) {
     url <- sprintf('http://www.genecards.org/cgi-bin/carddisp.pl?gene=%s',
-                   x$featureId)
+                   x$feature_id)
     html <- sprintf('<a href="%s" target="_blank">%s</a>', url, x$symbol)
     x[[link.col]] <- html
   }
@@ -199,11 +199,11 @@ genecards.entrez.link <- function(x, link.col='symbol') {
 ##'   \code{\link{logFC}} feature level statistics will be extracted for
 ##'   display.
 ##' @param features A character vector that specifies the subset of
-##'   \code{featureId}'s to display from \code{x}. If \code{NULL} (default),
+##'   \code{feature_id}'s to display from \code{x}. If \code{NULL} (default),
 ##'   all of \code{x} will be used.
 ##' @param digits number of digits to round the numeric columns to
 ##' @param columns the columns from \code{x} to use. If \code{missing}, then
-##'   only \code{c('symbol', 'featureId', 'logFC', 'pval', 'padj', order.by)}
+##'   only \code{c('symbol', 'feature_id', 'logFC', 'pval', 'padj', order.by)}
 ##'   will be used. If explicitly set to \code{NULL} all columns will be used.
 ##'
 ##' @param feature.link.fn A funcion that receives the data.frame of statistics
@@ -219,18 +219,18 @@ renderFeatureStatsDataTable <- function(x, features=NULL, digits=3,
   if (is(x, 'MultiGSEAResult')) {
     x <- copy(logFC(x, as.dt=TRUE))
   }
-  stopifnot(is(x, 'data.table'), !is.null(x$featureId))
+  stopifnot(is(x, 'data.table'), !is.null(x$feature_id))
   order.dir <- match.arg(order.dir)
   if (is.character(features)) {
-    x <- subset(x, featureId %in% features)
+    x <- subset(x, feature_id %in% features)
   }
 
   ## Figure out what columns to keep in the outgoing datatable
   if (missing(columns)) {
     # at this point, the "name" column is the geneset name
 
-    # support featureId or feature_id columns # dataframe-refactor
-    fid <- intersect(c("featureId", "feature_id"), colnames(x))[1]
+    # support feature_id or feature_id columns # dataframe-refactor
+    fid <- intersect(c("feature_id", "feature_id"), colnames(x))[1]
     if (is.na(fid)) fid <- character()
     columns <- c('symbol', fid, 'logFC', 'pval', 'padj', 'F', 't')
     columns <- intersect(columns, colnames(x))

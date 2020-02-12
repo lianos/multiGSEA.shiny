@@ -17,7 +17,7 @@ server <- function(input, output, session) {
 
   output$brushed <- DT::renderDataTable({
     req(volcano()) %>%
-      select(symbol, featureId, logFC, pval, padj) %>%
+      select(symbol, feature_id, logFC, pval, padj) %>%
       datatable
   })
 

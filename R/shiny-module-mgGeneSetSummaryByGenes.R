@@ -34,7 +34,7 @@ mgGeneSetSummaryByGene <- function(input, output, session, mgc,
     }
 
     if (is(fids, 'data.frame')) {
-      fids <- fids$featureId
+      fids <- fids$feature_id
     }
 
     mg.fids <- intersect(fids, featureIds(mg))
