@@ -50,7 +50,7 @@ mgVolcano <- function(input, output, session,
                       default_xhex=1, default_yhex=0.10, webgl = FALSE, ...) {
   onclick("settings", toggle(id="widgets", anim=TRUE))
   if (missing(idx)) {
-    if (stats == 'dge') idx <- 'featureId'
+    if (stats == 'dge') idx <- 'feature_id'
   }
 
   ## Extract the data used in the volcano to keep it handy
@@ -99,7 +99,7 @@ mgVolcano <- function(input, output, session,
     dat <- plotly_data(dat)
     event <- event_data('plotly_selected', source='mgvolcano')
     if (!is.null(event)) {
-      out <- subset(dat, featureId %in% event$key)
+      out <- subset(dat, feature_id %in% event$key)
     } else {
       out <- NULL
     }

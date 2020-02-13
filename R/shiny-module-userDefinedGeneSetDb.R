@@ -15,7 +15,7 @@
 userDefinedGeneSetDb <- function(input, output, session, ...) {
 
   empty.def <- data.frame(
-    collection = character(), name = character(), featureId = character(),
+    collection = character(), name = character(), feature_id = character(),
     stringsAsFactors = FALSE)
 
   state <- reactiveValues(
@@ -40,18 +40,18 @@ userDefinedGeneSetDb <- function(input, output, session, ...) {
       need(is.data.frame(dat), "Error parsing geneset definition file")
     )
 
-    req.cols <- c("collection", "name", "featureId")
+    req.cols <- c("collection", "name", "feature_id")
     missed <- setdiff(req.cols, colnames(dat))
     validate(
       need(
         length(missed) == 0L,
         sprintf("Missing columns: %s", paste(missed, collapse = ","))))
 
-    dat[["featureId"]] <- as.character(dat[["featureId"]])
+    dat[["feature_id"]] <- as.character(dat[["feature_id"]])
     state$dat <- dat %>%
       mutate(collection = as.character(collection),
              name = as.character(name),
-             featureId = as.character(featureId))
+             feature_id = as.character(feature_id))
   })
 
   gdb <- reactive({

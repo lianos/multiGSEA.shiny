@@ -75,12 +75,12 @@ shinyServer(function(input, output, session) {
 
   output$dge_volcano_genestats <- DT::renderDataTable({
     res.all <- req(lfc())
-    res <- res.all[, list(symbol, featureId, logFC, pval, padj)]
+    res <- res.all[, list(symbol, feature_id, logFC, pval, padj)]
 
     selected <- gene.volcano()
     # browser()
     if (!is.null(selected)) {
-      res <- subset(res, featureId %in% selected$featureId)
+      res <- subset(res, feature_id %in% selected$feature_id)
     }
 
     renderFeatureStatsDataTable(res, filter='top', feature.link.fn=ncbi.entrez.link)
