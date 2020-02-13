@@ -17,7 +17,7 @@ Imports:
     dtplyr,
     DT,
     miniUI,
-    multiGSEA,
+    multiGSEA (>= 0.13.9),
     plotly,
     readxl,
     shiny,
