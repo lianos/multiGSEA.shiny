@@ -5,26 +5,47 @@
 \alias{mgVolcano}
 \title{Creates a volcano plot from a source input}
 \usage{
-mgVolcanoUI(id, x, stats = "dge", xaxis = "logFC", yaxis = "padj",
-  idx = "idx", hexbin = TRUE, default_xhex = 1, default_yhex = 0.1)
+mgVolcanoUI(
+  id,
+  x,
+  stats = "dge",
+  xaxis = "logFC",
+  yaxis = "padj",
+  idx = "idx",
+  hexbin = TRUE,
+  default_xhex = 1,
+  default_yhex = 0.1
+)
 
-mgVolcano(input, output, session, x, stats = "dge", xaxis = "logFC",
-  yaxis = "pval", idx = "idx", tools = c("box_select", "reset",
-  "save"), width = NULL, height = NULL, highlight = reactive(NULL),
-  default_xhex = 1, default_yhex = 0.1, webgl = FALSE, ...)
+mgVolcano(
+  input,
+  output,
+  session,
+  x,
+  stats = "dge",
+  xaxis = "logFC",
+  yaxis = "pval",
+  idx = "idx",
+  tools = c("box_select", "reset", "save"),
+  width = NULL,
+  height = NULL,
+  highlight = reactive(NULL),
+  default_xhex = 1,
+  default_yhex = 0.1,
+  webgl = FALSE,
+  ...
+)
 }
 \arguments{
 \item{id}{the shiny id of the output widget}
 
-\item{x}{the object to build a volcano plot from}
+\item{x}{the name of the column from the stats table to use on x axis}
 
 \item{stats}{the stats to pull from \code{x} (if necessary) to build the
 volcano for.}
 
 \item{highlight}{a reactive vector of featureIds that indicate which points
 to highlight on the volcano, irresespective of their "hexbin" status.}
-
-\item{x}{the name of the column from the stats table to use on x axis}
 
 \item{y}{the name of the column from the stats table to use on y axis}
 }

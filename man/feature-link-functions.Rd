@@ -21,7 +21,7 @@ a modified \code{x} with an html link in \code{link.col}
 When listing features in an interactive table, it's often useful to link
 the feature to an external webpage that has more information about that
 feature. Functions to genes to their NCBI or GeneCards webpage via their
-\code{featureId} are provided via \code{ncbi.entrez.link} and
+\code{feature_id} are provided via \code{ncbi.entrez.link} and
 \code{genecards.entrez.link}. The column used to transform into a link
 is specified by \code{link.col}.
 

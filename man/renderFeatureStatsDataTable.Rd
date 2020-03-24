@@ -4,10 +4,17 @@
 \alias{renderFeatureStatsDataTable}
 \title{Creates a DT::datatable of feature level statistics for use in shiny bits}
 \usage{
-renderFeatureStatsDataTable(x, features = NULL, digits = 3,
-  columns = NULL, feature.link.fn = NULL, order.by = "logFC",
-  order.dir = c("desc", "asc"), filter = "none", length.opts = c(10,
-  25, 50, 100, 250))
+renderFeatureStatsDataTable(
+  x,
+  features = NULL,
+  digits = 3,
+  columns = NULL,
+  feature.link.fn = NULL,
+  order.by = "logFC",
+  order.dir = c("desc", "asc"),
+  filter = "none",
+  length.opts = c(10, 25, 50, 100, 250)
+)
 }
 \arguments{
 \item{x}{A \code{MultiGSEAResult} or \code{data.frame} of feature level
@@ -16,13 +23,13 @@ statistics. When \code{x} is a \code{\link{MultiGSEAResult}}, the
 display.}
 
 \item{features}{A character vector that specifies the subset of
-\code{featureId}'s to display from \code{x}. If \code{NULL} (default),
+\code{feature_id}'s to display from \code{x}. If \code{NULL} (default),
 all of \code{x} will be used.}
 
 \item{digits}{number of digits to round the numeric columns to}
 
 \item{columns}{the columns from \code{x} to use. If \code{missing}, then
-only \code{c('symbol', 'featureId', 'logFC', 'pval', 'padj', order.by)}
+only \code{c('symbol', 'feature_id', 'logFC', 'pval', 'padj', order.by)}
 will be used. If explicitly set to \code{NULL} all columns will be used.}
 
 \item{feature.link.fn}{A funcion that receives the data.frame of statistics

@@ -10,14 +10,33 @@
 \usage{
 geneSetSelectUI(id, label = "Select Gene Set")
 
-geneSetSelect(input, output, session, mgc, server = TRUE,
-  maxOptions = Inf, sep = "_::_")
+geneSetSelect(
+  input,
+  output,
+  session,
+  mgc,
+  server = TRUE,
+  maxOptions = Inf,
+  sep = "_::_"
+)
 
-updateGeneSetSelect(session, id, label = NULL, choices = NULL,
-  selected = NULL, options = list(), server = FALSE)
+updateGeneSetSelect(
+  session,
+  id,
+  label = NULL,
+  choices = NULL,
+  selected = NULL,
+  options = list(),
+  server = FALSE
+)
 
-gs.render.select.ui(ns, choices, server = TRUE, maxOptions = 1000,
-  sep = "_::_")
+gs.render.select.ui(
+  ns,
+  choices,
+  server = TRUE,
+  maxOptions = 1000,
+  sep = "_::_"
+)
 
 gs.select.choices(mg, sep = "_::_")
 }
@@ -26,12 +45,10 @@ gs.select.choices(mg, sep = "_::_")
 
 \item{mgc}{A \code{\link{MultiGSEAResultContainer}} object}
 
-\item{server}{boolean to indicate whether the genesets in the geneSetSelect
-widget should be rendered server side or not (Default: \code{TRUE})}
+\item{server}{\code{logical} to indicate whether options should be loaded
+on the server side (default: \code{TRUE})}
 
-\item{maxOptions}{a paremeter used to customize the
-\code{GeneSetSelect::selectizeInput} UI element. I thought one might want
-to tweak this, but I just leave it as is.}
+\item{maxOptions}{The maximum number of options to load into the dropdown}
 
 \item{sep}{the separater to put between the collection and name bits of a
 geneset. These are the values used in the gene set \code{selectizeInput}.}
@@ -41,11 +58,6 @@ geneset. These are the values used in the gene set \code{selectizeInput}.}
 \item{ns}{the namespace function for this module}
 
 \item{mg}{\code{MultiGSEAResult} to build options for}
-
-\item{server}{\code{logical} to indicate whether options should be loaded
-on the server side (default: \code{TRUE})}
-
-\item{maxOptions}{The maximum number of options to load into the dropdown}
 }
 \value{
 a properly wired \code{\link[shiny]{selectizeInput}}

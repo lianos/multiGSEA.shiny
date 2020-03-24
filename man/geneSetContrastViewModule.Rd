@@ -9,9 +9,17 @@
 \usage{
 geneSetContrastViewUI(id, height = "590px", width = "400px")
 
-geneSetContrastView(input, output, session, mgc, server = TRUE,
-  maxOptions = Inf, sep = "_::_", feature.link.fn = ncbi.entrez.link,
-  itools = c("wheel_zoom", "box_select", "reset", "save"))
+geneSetContrastView(
+  input,
+  output,
+  session,
+  mgc,
+  server = TRUE,
+  maxOptions = Inf,
+  sep = "_::_",
+  feature.link.fn = ncbi.entrez.link,
+  itools = c("wheel_zoom", "box_select", "reset", "save")
+)
 
 is.geneSetContrastViewer(x)
 
@@ -30,12 +38,10 @@ updateActiveGeneSetInContrastView(session, viewer, geneset, mgc)
 
 \item{mgc}{A \code{\link{MultiGSEAResultContainer}} object}
 
-\item{server}{boolean to indicate whether the genesets in the geneSetSelect
-widget should be rendered server side or not (Default: \code{TRUE})}
+\item{server}{\code{logical} to indicate whether options should be loaded
+on the server side (default: \code{TRUE})}
 
-\item{maxOptions}{a paremeter used to customize the
-\code{GeneSetSelect::selectizeInput} UI element. I thought one might want
-to tweak this, but I just leave it as is.}
+\item{maxOptions}{The maximum number of options to load into the dropdown}
 
 \item{sep}{the separater to put between the collection and name bits of a
 geneset. These are the values used in the gene set \code{selectizeInput}.}
