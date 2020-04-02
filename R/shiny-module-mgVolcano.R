@@ -42,7 +42,6 @@ mgVolcanoUI <- function(id, x, stats='dge', xaxis='logFC', yaxis='padj',
 ##' @importFrom shinyjs onclick toggle
 ##' @param highlight a reactive vector of featureIds that indicate which points
 ##'   to highlight on the volcano, irresespective of their "hexbin" status.
-##' @rdname mgVolcano
 mgVolcano <- function(input, output, session,
                       x, stats='dge', xaxis='logFC', yaxis='pval', idx='idx',
                       tools=c('box_select', 'reset', 'save'),
