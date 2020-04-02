@@ -3,4 +3,5 @@
 ##' @import dtplyr
 ##' @import multiGSEA
 ##' @import plotly
+##' @import checkmate
 NULL
