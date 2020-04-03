@@ -128,10 +128,11 @@ reactiveGeneSetDbFilterUI <- function(id, min = 2, max = 100L, ...) {
         `selected-text-format`= "count",
         `count-selected-text` = "{0} collections chosen"
       )),
-    sliderInput(ns("size"), "Set Size", min = 2, max = 100,
+    sliderInput(ns("size"), "Set Size", min = min, max = max,
                 value = c(min, max)),
     tags$p(
-      tags$span("Gene Sets Selected:", style = "font-weight: bold"),
+      tags$span("Gene Sets Selected:",
+                style = "font-weight: bold; color: #FF7F00"),
       uiOutput(ns("gscount"), inline = TRUE)
     )
   )
