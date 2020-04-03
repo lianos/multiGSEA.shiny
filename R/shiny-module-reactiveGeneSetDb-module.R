@@ -137,3 +137,28 @@ reactiveGeneSetDbFilterUI <- function(id, min = 2, max = 100L, ...) {
     )
   )
 }
+
+#' Returns the filtered unreactive GeneSetDb from the reactiveGeneSetDb module.
+#'
+#' The user can choose to include subsets of collections, as well as
+#' genesets of a certain size.
+#'
+#' This can only be run within a reactive context.
+#'
+#' @noRd
+#' @export
+GeneSetDb.ReactiveGeneSetDb <- function(x, ...) {
+  gdb <- x$gdb()
+  gsets.all <- geneSets(gdb)
+  gsets.selected <- x$geneSets()
+
+  keep <- is.element(
+    paste(gsets.all$collection, gsets.all$name),
+    paste(gsets.selected$collection, gsets.selected$name))
+
+  if (!all(keep)) {
+    gdb <- gdb[keep]
+  }
+
+  gdb
+}
