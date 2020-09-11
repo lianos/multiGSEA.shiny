@@ -50,7 +50,7 @@ insertPlotlyReset <- function(source, event=c('hover', 'click', 'selected')) {
        // window.alert(jsid);
        Shiny.onInputChange(jsid, 'null'); }",
     source, event, event, source)
-  extendShinyjs(text=text)
+  extendShinyjs(text=text, functions=sprintf("reset_%s_%s", source, event))
 }
 
 ## Gene Set Level Table Helpers ================================================

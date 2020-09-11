@@ -1,7 +1,7 @@
 Package: multiGSEA.shiny
 Type: Package
 Title: Provides shiny components to visualize multilGSEA results
-Version: 0.1.14
+Version: 0.1.15
 Authors@R: c(
     person("Steve", "Lianoglou", , "slianoglou@gmail.com", c("aut", "cre")),
     person("Denali Therapeutics", role = c("cph", "fnd"), comment = "2018+"),
@@ -23,7 +23,7 @@ Imports:
     readxl,
     shiny,
     shinydashboard,
-    shinyjs,
+    shinyjs (>= 2.0.0),
     shinyWidgets,
     V8
 Remotes:
